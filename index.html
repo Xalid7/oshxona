@@ -1,0 +1,311 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Dashboard | Bog'cha-oshxona</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="Bog'cha oshxona boshqaruv paneli" name="description" />
+    <meta content="Themesbrand" name="author" />
+    <link rel="shortcut icon" href="/static/images/favicon.ico">
+
+    <!-- Plugin CSS -->
+    <link href="/static/css/jquery-jvectormap-1.2.2.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="/static/css/preloader.min.css" type="text/css" />
+    <link href="/static/css/bootstrap.min.css" id="bootstrap-style" rel="stylesheet" type="text/css" />
+    <link href="/static/css/icons.min.css" rel="stylesheet" type="text/css" />
+    <link href="/static/css/app.min.css" id="app-style" rel="stylesheet" type="text/css" />
+    <style>
+      /* Modal sarlavhalar bir xil ko‘rinishi uchun */
+        .modal-title {
+            font-size: 1.25rem !important;
+            font-weight: 600;
+            line-height: 1.2;
+            margin: 0;
+      }
+
+      .modal-header {
+            padding: 1rem 1.25rem;
+            align-items: center;
+      }
+</style>
+</head>
+
+
+<body>
+    <div id="layout-wrapper">
+
+        <!-- Header -->
+        <header id="page-topbar">
+            <div class="navbar-header">
+                <div class="d-flex">
+                    <div class="navbar-brand-box">
+                        <a href="index.html" class="logo logo-dark">
+                            <span class="logo-sm">
+                                <img src="/static/images/logo-sm.svg" alt="" height="24">
+                            </span>
+                            <span class="logo-lg">
+                                <img src="/static/images/logo-sm.svg" alt="" height="24">
+                                <span class="logo-txt">Bog'cha-oshxona</span>
+                            </span>
+                        </a>
+                        <a href="index.html" class="logo logo-light">
+                            <span class="logo-sm">
+                                <img src="/static/images/logo-sm.svg" alt="" height="24">
+                            </span>
+                            <span class="logo-lg">
+                                <img src="/static/images/logo-sm.svg" alt="" height="24">
+                                <span class="logo-txt">Bog'cha-oshxona</span>
+                            </span>
+                        </a>
+                    </div>
+                    <button type="button" class="btn btn-sm px-3 font-size-16 header-item" id="vertical-menu-btn">
+                        <i class="fa fa-fw fa-bars"></i>
+                    </button>
+                </div>
+                <div class="d-flex align-items-center">
+                    <div class="dropdown d-inline-block">
+                        <button type="button" class="btn header-item bg-light-subtle border-start border-end"
+                                id="page-header-user-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <img class="rounded-circle header-profile-user" src="/static/images/users/avatar-1.jpg" alt="Header Avatar">
+                            <span class="d-none d-xl-inline-block ms-1 fw-medium">Foydalanuvchi</span>
+                            <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-end">
+                            <a class="dropdown-item" href="#"><i class="mdi mdi-face-man font-size-16 align-middle me-1"></i> Profil</a>
+                            <a class="dropdown-item" href="#"><i class="mdi mdi-lock font-size-16 align-middle me-1"></i> Qulf</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#"><i class="mdi mdi-logout font-size-16 align-middle me-1"></i> Chiqish</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Sidebar -->
+        <div class="vertical-menu">
+            <div data-simplebar class="h-100">
+                <div id="sidebar-menu">
+                    <ul class="metismenu list-unstyled" id="side-menu">
+                        <li class="menu-title" data-key="t-menu">Menu</li>
+                        <li>
+                            <a href="index.html">
+                                <i data-feather="home"></i>
+                                <span data-key="t-dashboard">Dashboard</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript: void(0);" class="has-arrow">
+                                <i data-feather="box"></i>
+                                <span data-key="t-mahsulotlar">Mahsulotlar</span>
+                            </a>
+                            <ul class="sub-menu" aria-expanded="false">
+                                <li><a href="#ingredients-section">Barcha mahsulotlar</a></li>
+                                <li><a href="#" data-bs-toggle="modal" data-bs-target="#ingredientModal">Yangi mahsulot</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="pages-404.html">
+                                <i data-feather="alert-circle"></i>
+                                <span data-key="t-error">404 Sahifa</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="page-content">
+                <div class="container-fluid">
+                    <!-- Dashboard Content -->
+
+                    <!-- Mahsulotlar Section -->
+                    <div class="row mt-4" id="ingredients-section">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header d-flex justify-content-between align-items-center">
+                                    <h5 class="mb-0">📦 Mahsulotlar</h5>
+                                    <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#ingredientModal">➕ Yangi mahsulot</button>
+                                </div>
+                                <div class="card-body">
+                                    <table class="table table-bordered table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Nomi</th>
+                                                <th>Miqdori (g)</th>
+                                                <th>Yetkazilgan sana</th>
+                                                <th>Amallar</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="ingredientTableBody">
+                                            <!-- JS will populate this -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Yangi Mahsulot Qo‘shish Modal -->
+                    <div class="modal fade" id="ingredientModal" tabindex="-1" aria-labelledby="ingredientModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <form id="ingredientForm">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="ingredientModalLabel">Yangi mahsulot</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Yopish"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="mb-3">
+                                            <label class="form-label">Nomi</label>
+                                            <input type="text" class="form-control" id="ingredientName" required />
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label">Miqdori (gramm)</label>
+                                            <input type="number" class="form-control" id="ingredientQty" required />
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label">Yetkazilgan sana</label>
+                                            <input type="date" class="form-control" id="ingredientDate" required />
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="submit" class="btn btn-primary">Saqlash</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- Ovqatlar Modal -->
+                    <!-- 🍽 Ovqatlar bo‘limi -->
+                    <div class="card my-4">
+                      <div class="card-header d-flex justify-content-between align-items-center">
+                        <strong>🍲 Ovqatlar</strong>
+                        <button class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#mealModal">+ Yangi ovqat</button>
+                      </div>
+                      <div class="table-responsive">
+                        <table class="table">
+                          <thead>
+                            <tr>
+                              <th>#</th>
+                              <th>Ovqat nomi</th>
+                              <th>Tayyorlangan sana</th>
+                              <th>Amallar</th>
+                            </tr>
+                          </thead>
+                          <tbody id="mealTableBody"></tbody>
+                        </table>
+                      </div>
+                    </div>
+
+                    <!-- Modal: Yangi ovqat -->
+                    <!-- 🍲 Modal: Yangi ovqat qo‘shish -->
+                    <div class="modal fade" id="mealModal" tabindex="-1" aria-labelledby="mealModalLabel" aria-hidden="true">
+                      <div class="modal-dialog">
+                        <form id="mealForm">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="mealModalLabel">🍲 Yangi ovqat</h5>
+                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Yopish"></button>
+                            </div>
+
+                            <div class="modal-body">
+                              <div class="mb-3">
+                                <label for="mealName" class="form-label">Ovqat nomi</label>
+                                <input type="text" class="form-control" id="mealName" required />
+                              </div>
+
+                              <div class="mb-3">
+                                <label for="mealIngredients" class="form-label">Ingredientlar</label>
+                                <select class="form-select" id="mealIngredients" multiple required size="5">
+                                  <!-- JS orqali yuklanadi -->
+                                </select>
+                              </div>
+
+                              <div class="mb-3">
+                                <label for="mealDate" class="form-label">Tayyorlangan sana</label>
+                                <input type="date" class="form-control" id="mealDate" required />
+                              </div>
+                            </div>
+
+                            <div class="modal-footer">
+                              <button type="submit" class="btn btn-primary">Saqlash</button>
+                            </div>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+
+
+
+                    <!-- Vizualizatsiya va Hisobotlar Section -->
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <h5 class="mb-0">📊 Vizualizatsiya va hisobotlar</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <h6>Ingredientlar iste'moli (kunlik/oylik)</h6>
+                                        <div id="ingredientConsumptionChart" style="height: 300px;"></div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h6>Yetkazilgan ingredientlar (sana bo‘yicha)</h6>
+                                        <div id="ingredientDeliveryChart" style="height: 300px;"></div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <h6 class="mt-4">📅 Oylik hisobot</h6>
+                                <ul>
+                                    <li>Tayyorlangan porsiyalar soni: <span id="preparedPortions">0</span></li>
+                                    <li>Tayyorlanishi mumkin bo'lgan porsiyalar soni: <span id="possiblePortions">0</span></li>
+                                    <li>Farq foizi (%): <span id="differencePercent">0%</span> <span id="alertFlag"></span></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Footer -->
+                    <footer class="footer">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <script>document.write(new Date().getFullYear())</script> © Jassa.
+                                </div>
+                            </div>
+                        </div>
+                    </footer>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Scripts -->
+    <script src="/static/js/jquery.min.js"></script>
+    <script src="/static/js/bootstrap.bundle.min.js"></script>
+    <script src="/static/js/metisMenu.min.js"></script>
+    <script src="/static/js/simplebar.min.js"></script>
+    <script src="/static/js/waves.min.js"></script>
+    <script src="/static/js/feather.min.js"></script>
+    <script src="/static/js/pace.min.js"></script>
+    <script src="/static/js/meals.js"></script>
+    <script src="/static/js/serve.js"></script>
+    <script src="/static/js/stats.js"></script>
+    <script src="/static/js/apexcharts.min.js"></script>
+    <script src="/static/js/dashboard.init.js"></script>
+    <script src="/static/js/app.js"></script>
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+    <script src="/static/js/meals.js"></script>
+    <img src="/static/images/logo-sm.svg" />
+    <script src="/static/js/ingredients.js"></script>
+
+
+
+</body>
+
+</html>
