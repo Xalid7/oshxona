@@ -1,0 +1,32 @@
+name: CI/CD Deployment
+
+on:
+  push:
+    branches:
+      - main   # yoki master agar sizda branch nomi master bo‘lsa o‘zgartiring
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v4
+
+    - name: Setup SSH
+      run: |
+        mkdir -p ~/.ssh
+        echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+        chmod 600 ~/.ssh/id_rsa
+        ssh-keyscan -H 16.16.182.89 >> ~/.ssh/known_hosts
+
+    - name: Deploy to server
+      run: |
+        ssh -o StrictHostKeyChecking=no ubuntu@16.16.182.89 << 'EOF'
+          cd ~/oshxona
+          git pull origin main
+          source venv/bin/activate
+          pip install -r requirements.txt
+          sudo systemctl restart uvicorn
+          sudo systemctl restart nginx
+        EOF
